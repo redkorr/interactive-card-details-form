@@ -1,0 +1,4 @@
+.CardFront {
+  background-image: url(/src/assets/bg-card-front.png);
+  background-size: cover;
+}
