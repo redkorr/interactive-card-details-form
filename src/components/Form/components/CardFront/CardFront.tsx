@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './CardFront.module.css';
-import cardLogo from '../../../assets/card-logo.svg';
+import cardLogo from '../../../../assets/bg-card-front.png';
 
 // interface Props {
 //   cardNumber: number;
