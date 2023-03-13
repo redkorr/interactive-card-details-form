@@ -1,95 +1,258 @@
-import React, { useState, useRef, ChangeEvent } from 'react';
-import CardBack from './CardBack/CardBack';
-import CardFront from './CardFront/CardFront';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+
+import { CardBack, CardFront } from './components';
+
+import { Regex } from '../../utils/regex';
+
+import styles from './Form.module.css';
+
+type FormValues = {
+  [key: string]: string;
+};
+
+type FormErrors = {
+  [K in keyof FormValues]?: string;
+};
+
+interface CardDetails {
+  cardholderName: string;
+  cardNumber: string;
+  expirationMonth: string;
+  expirationYear: string;
+  cardVerificationCode: string;
+}
+
+const initialErrorState: FormErrors = {
+  expirationMonthErrorMessage: '',
+  expirationYearErrorMessage: '',
+  cardholderNameErrorMessage: '',
+  cardNumberErrorMessage: '',
+  cardVerificationCodeErrorMessage: ''
+};
 
 const Form = () => {
-  const [expirationMonth, setExpirationMonth] = useState('');
-  const [expirationYear, setExpirationYear] = useState('');
-  const [cardholderName, setCardholderName] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardVerificationCode, setCardVerificationCode] = useState('');
+  const [cardDetails, setCardDetails] = useState<CardDetails>({
+    cardholderName: '',
+    cardNumber: '',
+    expirationMonth: '',
+    expirationYear: '',
+    cardVerificationCode: ''
+  });
+
+  const [formValidation, setFormValidation] = useState<FormErrors>(initialErrorState);
+
   const monthRef = useRef<HTMLInputElement>(null);
 
   const handleMonthChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setExpirationMonth(event.target.value);
+    const updatedExpirationMonth = { expirationMonth: `${event.target.value}` };
+
+    setCardDetails((cardDetails) => ({
+      ...cardDetails,
+      ...updatedExpirationMonth
+    }));
   };
+
   const handleYearChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setExpirationYear(event.target.value);
+    const updatedExpirationYear = { expirationYear: `${event.target.value}` };
+
+    setCardDetails((cardDetails) => ({
+      ...cardDetails,
+      ...updatedExpirationYear
+    }));
   };
+
   const handleCardholderNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCardholderName(event.target.value);
+    const updatedCardholderName = { cardholderName: `${event.target.value}` };
+
+    setCardDetails((cardDetails) => ({
+      ...cardDetails,
+      ...updatedCardholderName
+    }));
   };
+
   const handleCardNumber = (event: ChangeEvent<HTMLInputElement>) => {
-    setCardNumber(event.target.value);
+    const updatedCardNumber = { cardNumber: `${event.target.value}` };
+
+    setCardDetails((cardDetails) => ({
+      ...cardDetails,
+      ...updatedCardNumber
+    }));
   };
+
   const handleCardVerificationCode = (event: ChangeEvent<HTMLInputElement>) => {
-    setCardVerificationCode(event.target.value);
+    const updatedCardVerificationCode = {
+      cardVerificationCode: `${event.target.value}`
+    };
+
+    setCardDetails((cardDetails) => ({
+      ...cardDetails,
+      ...updatedCardVerificationCode
+    }));
   };
+
+  const validateCardholderName = (value: string): string => (value.trim().length === 0 ? "Can't be blank" : '');
+
+  const validateCardNumber = (value: string): string =>
+    Regex.cardNumberPattern.test(value) ? '' : 'Wrong format, numbers only';
+
+  const validateExpirationMonth = (value: string): string =>
+    Regex.expirationMonthPattern.test(value) ? '' : "Can't be blank";
+
+  const validateExpirationYear = (value: string): string =>
+    Regex.expirationYearPattern.test(value) ? '' : "Can't be blank";
+
+  const validateCardVerificationCode = (value: string): string =>
+    Regex.cardValidationCodePattern.test(value) ? '' : "Can't be blank";
+
+  const validateForm = (cardDetails: CardDetails): FormErrors => {
+    const { cardholderName, cardNumber, expirationMonth, expirationYear, cardVerificationCode } = cardDetails;
+
+    const validationErrors: FormErrors = {
+      expirationMonthErrorMessage: validateExpirationMonth(expirationMonth),
+      expirationYearErrorMessage: validateExpirationYear(expirationYear),
+      cardholderNameErrorMessage: validateCardholderName(cardholderName),
+      cardNumberErrorMessage: validateCardNumber(cardNumber),
+      cardVerificationCodeErrorMessage: validateCardVerificationCode(cardVerificationCode)
+    };
+
+    console.log(expirationMonth);
+
+    return validationErrors;
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    setFormValidation(validateForm(cardDetails));
+  };
+
   const handleLabelClick = () => {
     if (monthRef.current) {
       monthRef.current.focus();
     }
   };
 
+  const {
+    cardholderNameErrorMessage,
+    cardNumberErrorMessage,
+    expirationMonthErrorMessage,
+    expirationYearErrorMessage,
+    cardVerificationCodeErrorMessage
+  } = formValidation;
+
   return (
-    <div>
-      <CardFront />
-      <CardBack />
-      <form>
-        <div>
-          <label htmlFor='cardholder-name'>CARDHOLDER NAME</label>
+    <div className={styles.contentWrapper}>
+      <div>
+        <CardFront />
+        <CardBack />
+      </div>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit}
+      >
+        <div className={styles.labelWrapper}>
+          <label
+            className={styles.label}
+            htmlFor="cardholder-name"
+          >
+            CARDHOLDER NAME
+          </label>
           <input
-            type='text'
-            id='cardholder-name'
-            placeholder='e.g. Jane Appleseed'
-            value={cardholderName}
+            className={`${cardholderNameErrorMessage ? styles.wideInputError : styles.wideInput}`}
+            type="text"
+            id="cardholder-name"
+            placeholder="e.g. Jane Appleseed"
+            value={cardDetails.cardholderName}
             onChange={handleCardholderNameChange}
           />
+          {cardholderNameErrorMessage && <label className={styles.error}>{cardholderNameErrorMessage}</label>}
         </div>
-        <div>
-          <label htmlFor='card-number'>CARD NUMBER</label>
 
+        <div className={styles.labelWrapper}>
+          <label
+            className={styles.label}
+            htmlFor="card-number"
+          >
+            CARD NUMBER
+          </label>
           <input
-            type='number'
-            id='card-number'
-            placeholder='e.g. 1234 5678 9123 0000'
-            value={cardNumber}
+            className={cardNumberErrorMessage ? styles.wideInputError : styles.wideInput}
+            type="text"
+            id="card-number"
+            placeholder="e.g. 1234 5678 9123 0000"
+            value={cardDetails.cardNumber}
             onChange={handleCardNumber}
           />
+          {cardNumberErrorMessage && <label className={styles.error}>{cardNumberErrorMessage}</label>}
         </div>
-        <div>
-          <label htmlFor='expiration-month' onClick={handleLabelClick}>
-            EXP. DATE (MM/YY)
-          </label>
-          <label htmlFor='cvc'>CVC</label>
-          <div>
-            <input
-              type='text'
-              id='expiration-month'
-              placeholder='MM'
-              value={expirationMonth}
-              onChange={handleMonthChange}
-              maxLength={2}
-            />
-            <input
-              type='text'
-              id='expiration-year'
-              placeholder='YY'
-              value={expirationYear}
-              onChange={handleYearChange}
-              maxLength={2}
-            />
+        <div className={styles.bottomLabelSectionWrapper}>
+          <div className={styles.expirationDateWrapper}>
+            <label
+              className={styles.label}
+              htmlFor="expiration-month"
+              onClick={handleLabelClick}
+            >
+              EXP. DATE (MM/YY)
+            </label>
+
+            <div className={styles.expirationDateInputWrapper}>
+              <div className={styles.dateWrapper}>
+                <input
+                  className={expirationMonthErrorMessage ? styles.shortInputError : styles.shortInput}
+                  type="text"
+                  id="expiration-month"
+                  placeholder="MM"
+                  value={cardDetails.expirationMonth}
+                  onChange={handleMonthChange}
+                  maxLength={2}
+                />
+              </div>
+              <div className={styles.dateWrapper}>
+                <input
+                  className={expirationYearErrorMessage ? styles.shortInputError : styles.shortInput}
+                  type="text"
+                  id="expiration-year"
+                  placeholder="YY"
+                  value={cardDetails.expirationYear}
+                  onChange={handleYearChange}
+                  maxLength={2}
+                />
+              </div>
+            </div>
+            <div>
+              {!cardDetails.expirationMonth.match(Regex.expirationMonthPattern) &&
+                !cardDetails.expirationYear.match(Regex.expirationYearPattern) && (
+                  <label className={styles.error}>{expirationMonthErrorMessage}</label>
+                )}
+            </div>
           </div>
-          <input
-            type='text'
-            id='cvc'
-            placeholder='e.g. 123'
-            value={cardVerificationCode}
-            onChange={handleCardVerificationCode}
-          />
+          <div className={styles.cardVerificationCodeWrapper}>
+            <label
+              className={styles.label}
+              htmlFor="cvc"
+            >
+              CVC
+            </label>
+            <input
+              className={cardVerificationCodeErrorMessage ? styles.inputError : styles.input}
+              type="text"
+              id="cvc"
+              placeholder="e.g. 123"
+              value={cardDetails.cardVerificationCode}
+              onChange={handleCardVerificationCode}
+              maxLength={3}
+            />
+            {!cardDetails.cardVerificationCode.match(Regex.cardValidationCodePattern) && (
+              <label className={styles.error}>{cardVerificationCodeErrorMessage}</label>
+            )}
+          </div>
         </div>
-        <br />
-        <input type='submit' value='Confirm' />
+
+        <input
+          className={styles.submitButton}
+          type="submit"
+          value="Confirm"
+        />
       </form>
     </div>
   );
