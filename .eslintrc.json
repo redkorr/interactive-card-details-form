@@ -1,0 +1,47 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
+  "overrides": [],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 1 }],
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "prettier/prettier": ["error", { "singleQuote": true, "endOfLine": "auto" }],
+    "quotes": [2, "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ],
+    "camelcase": "warn",
+    "prefer-const": "error",
+    "no-use-before-define": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-non-null-assertion": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-console": "warn",
+    "semi": ["error", "always"],
+    "padding-line-between-statements": "off",
+    "@typescript-eslint/padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "*"
+      }
+    ],
+    "object-curly-spacing": ["error", "always"]
+  }
+}
