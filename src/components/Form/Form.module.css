@@ -44,30 +44,8 @@
 .expirationDateWrapper {
   display: flex;
   align-content: center;
-  justify-content: center;
   flex-direction: column;
   width: 50%;
-}
-
-.wideInput {
-  padding: 12px 16px;
-  border-radius: 8px;
-  background: linear-gradient(white, white) padding-box,
-    linear-gradient(to right, var(--light-grayish-violet), var(--light-grayish-violet)) border-box;
-  border: 1px solid transparent;
-  color: var(--very-dark-violet);
-}
-.wideInput[type='text']:focus-visible {
-  border-style: solid;
-  background: linear-gradient(white, white) padding-box,
-    linear-gradient(to right, var(--blue), var(--violet)) border-box;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  outline: none;
-}
-
-.wideInput::placeholder {
-  color: var(--light-grayish-violet);
 }
 
 .shortInput {
@@ -89,6 +67,28 @@
 }
 
 .shortInput::placeholder {
+  color: var(--light-grayish-violet);
+}
+
+.shortInputError {
+  background: linear-gradient(white, white) padding-box, linear-gradient(to right, var(--red), var(--red)) border-box;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: var(--very-dark-violet);
+  width: 50%;
+}
+
+.shortInputError[type='text']:focus-visible {
+  border-style: solid;
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(to right, var(--blue), var(--violet)) border-box;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.shortInputError::placeholder {
   color: var(--light-grayish-violet);
 }
 
@@ -121,21 +121,17 @@
   color: var(--very-dark-violet);
 }
 
-.wideInputError {
-  background: linear-gradient(white, white) padding-box, linear-gradient(to right, var(--red), var(--red)) border-box;
-  padding: 12px 16px;
+.inputError[type='text']:focus-visible {
+  border-style: solid;
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(to right, var(--blue), var(--violet)) border-box;
   border-radius: 8px;
   border: 1px solid transparent;
-  color: var(--very-dark-violet);
+  outline: none;
 }
 
-.shortInputError {
-  background: linear-gradient(white, white) padding-box, linear-gradient(to right, var(--red), var(--red)) border-box;
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  width: 50%;
-  color: var(--very-dark-violet);
+.inputError::placeholder {
+  color: var(--light-grayish-violet);
 }
 
 .submitButton {

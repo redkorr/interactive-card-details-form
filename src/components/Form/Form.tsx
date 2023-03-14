@@ -158,14 +158,16 @@ const Form = () => {
             CARDHOLDER NAME
           </label>
           <input
-            className={`${cardholderNameErrorMessage ? styles.wideInputError : styles.wideInput}`}
+            className={`${cardholderNameErrorMessage ? styles.inputError : styles.input}`}
             type="text"
             id="cardholder-name"
             placeholder="e.g. Jane Appleseed"
             value={cardDetails.cardholderName}
             onChange={handleCardholderNameChange}
           />
-          {cardholderNameErrorMessage && <label className={styles.error}>{cardholderNameErrorMessage}</label>}
+          {cardDetails.cardholderName.trim().length === 0 && (
+            <label className={styles.error}>{cardholderNameErrorMessage}</label>
+          )}
         </div>
 
         <div className={styles.labelWrapper}>
@@ -176,14 +178,16 @@ const Form = () => {
             CARD NUMBER
           </label>
           <input
-            className={cardNumberErrorMessage ? styles.wideInputError : styles.wideInput}
+            className={cardNumberErrorMessage ? styles.inputError : styles.input}
             type="text"
             id="card-number"
             placeholder="e.g. 1234 5678 9123 0000"
             value={cardDetails.cardNumber}
             onChange={handleCardNumber}
           />
-          {cardNumberErrorMessage && <label className={styles.error}>{cardNumberErrorMessage}</label>}
+          {!cardDetails.cardNumber.match(Regex.cardNumberPattern) && (
+            <label className={styles.error}>{cardNumberErrorMessage}</label>
+          )}
         </div>
         <div className={styles.bottomLabelSectionWrapper}>
           <div className={styles.expirationDateWrapper}>
@@ -219,12 +223,10 @@ const Form = () => {
                 />
               </div>
             </div>
-            <div>
-              {!cardDetails.expirationMonth.match(Regex.expirationMonthPattern) &&
-                !cardDetails.expirationYear.match(Regex.expirationYearPattern) && (
-                  <label className={styles.error}>{expirationMonthErrorMessage}</label>
-                )}
-            </div>
+            {!cardDetails.expirationMonth.match(Regex.expirationMonthPattern) &&
+              !cardDetails.expirationYear.match(Regex.expirationYearPattern) && (
+                <label className={styles.error}>{expirationMonthErrorMessage}</label>
+              )}
           </div>
           <div className={styles.cardVerificationCodeWrapper}>
             <label
