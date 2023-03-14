@@ -115,8 +115,6 @@ const Form = () => {
       cardVerificationCodeErrorMessage: validateCardVerificationCode(cardVerificationCode)
     };
 
-    console.log(expirationMonth);
-
     return validationErrors;
   };
 
@@ -142,9 +140,14 @@ const Form = () => {
 
   return (
     <div className={styles.contentWrapper}>
-      <div>
-        <CardFront />
-        <CardBack />
+      <div className={styles.cardWrapper}>
+        <CardFront
+          cardNumber={cardDetails.cardNumber}
+          cardholderName={cardDetails.cardholderName}
+          expirationMonth={cardDetails.expirationMonth}
+          expirationYear={cardDetails.expirationYear}
+        />
+        <CardBack cardVerificationCode={cardDetails.cardVerificationCode} />
       </div>
       <form
         className={styles.form}

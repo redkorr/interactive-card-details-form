@@ -162,3 +162,8 @@
   color: var(--very-dark-violet);
   letter-spacing: 0.2em;
 }
+
+.cardWrapper {
+  margin-left: 60px;
+  margin-right: 60px;
+}
