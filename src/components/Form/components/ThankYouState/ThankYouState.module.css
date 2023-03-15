@@ -1,0 +1,45 @@
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  width: 28lvw;
+  margin: 100px;
+}
+
+.icon {
+  margin: 0px auto;
+}
+
+.header {
+  color: var(--very-dark-violet);
+  font-size: 28px;
+  letter-spacing: 0.1em;
+  margin: 10px auto 0px auto;
+}
+
+.header p {
+  margin-bottom: 18px;
+}
+
+.text {
+  color: var(--dark-grayish-violet);
+  margin: 0px auto 38px auto;
+}
+
+.button {
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px 50px;
+  background-color: var(--very-dark-violet);
+  color: var(--white);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.button:hover {
+  cursor: pointer;
+}
