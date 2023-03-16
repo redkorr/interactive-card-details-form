@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
 import { CardBack, CardFront, ThankYouState } from './components';
 
@@ -41,7 +41,9 @@ const Form = () => {
 
   const [formValidation, setFormValidation] = useState<FormErrors>(initialErrorState);
 
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
   const monthRef = useRef<HTMLInputElement>(null);
 
@@ -121,41 +123,19 @@ const Form = () => {
   };
 
   const handleFormValidation = (formValidation: FormErrors) => {
-    const {
-      cardholderNameErrorMessage,
-      cardNumberErrorMessage,
-      expirationMonthErrorMessage,
-      expirationYearErrorMessage,
-      cardVerificationCodeErrorMessage
-    } = formValidation;
+    const isValid = Object.values(formValidation).every((error) => error === '');
 
-    if (cardholderNameErrorMessage) {
-      return setIsFormValid(false);
-    }
-
-    if (cardNumberErrorMessage) {
-      return setIsFormValid(false);
-    }
-
-    if (expirationMonthErrorMessage) {
-      return setIsFormValid(false);
-    }
-
-    if (expirationYearErrorMessage) {
-      return setIsFormValid(false);
-    }
-
-    if (cardVerificationCodeErrorMessage) {
-      return setIsFormValid(false);
-    }
-
-    return setIsFormValid(false);
+    setIsFormValid(isValid);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setFormValidation(validateForm(cardDetails));
+    const validation = validateForm(cardDetails);
+
+    setFormValidation(validation);
+
+    setFormSubmitted(true);
   };
 
   const handleLabelClick = () => {
@@ -172,6 +152,10 @@ const Form = () => {
     cardVerificationCodeErrorMessage
   } = formValidation;
 
+  useEffect(() => {
+    handleFormValidation(formValidation);
+  }, [formValidation]);
+
   return (
     <div className={styles.contentWrapper}>
       <div className={styles.cardWrapper}>
@@ -183,7 +167,7 @@ const Form = () => {
         />
         <CardBack cardVerificationCode={cardDetails.cardVerificationCode} />
       </div>
-      {isFormValid ? (
+      {formSubmitted && isFormValid ? (
         <ThankYouState />
       ) : (
         <form
