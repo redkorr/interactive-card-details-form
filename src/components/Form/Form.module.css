@@ -8,6 +8,11 @@
   margin: 100px;
 }
 
+.cardWrapper {
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
 .contentWrapper {
   display: flex;
   margin: 10%;
@@ -161,9 +166,4 @@
   margin-bottom: 10px;
   color: var(--very-dark-violet);
   letter-spacing: 0.2em;
-}
-
-.cardWrapper {
-  margin-left: 60px;
-  margin-right: 60px;
 }
