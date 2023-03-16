@@ -8,6 +8,11 @@
   margin: 100px;
 }
 
+.cardWrapper {
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
 .contentWrapper {
   display: flex;
   margin: 10%;

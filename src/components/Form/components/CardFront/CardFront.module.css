@@ -1,4 +1,35 @@
-.CardFront {
+.cardFront {
   background-image: url(/src/assets/bg-card-front.png);
-  background-size: cover;
+  background-repeat: no-repeat;
+  width: 388px;
+  height: 188px;
+  padding: 30px;
+}
+
+.bottomWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+}
+
+.expirationDateWrapper {
+  display: flex;
+  color: var(--white);
+}
+
+.cardLogo {
+  margin-bottom: 20px;
+}
+
+.cardNumber {
+  font-size: 26px;
+  color: var(--white);
+  letter-spacing: 0.1em;
+}
+
+.cardholderName {
+  color: var(--white);
 }
