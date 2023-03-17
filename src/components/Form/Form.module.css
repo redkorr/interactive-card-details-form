@@ -5,12 +5,11 @@
 }
 .form {
   width: 30%;
-  margin: 100px;
+  margin: 10svh 10svw;
 }
 
 .cardWrapper {
-  margin-left: 60px;
-  margin-right: 60px;
+  margin: 0px 2svw 0px 2svw;
 }
 
 .contentWrapper {
@@ -166,4 +165,65 @@
   margin-bottom: 10px;
   color: var(--very-dark-violet);
   letter-spacing: 0.2em;
+}
+
+@media (max-width: 1200px) {
+  .form {
+    margin: 6svh 6svw;
+  }
+}
+
+@media (max-width: 1000px) {
+  .contentWrapper {
+    margin: 26px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 90%;
+  }
+
+  .cardWrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 0px 50px 0px;
+    height: 260px;
+  }
+
+  .form {
+    width: 100%;
+    margin: 0px;
+  }
+
+  .labelWrapper {
+    margin-bottom: 12px;
+  }
+
+  .bottomLabelSectionWrapper {
+    margin-bottom: 12px;
+  }
+
+  .label {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--very-dark-violet);
+    letter-spacing: 0.2em;
+  }
+
+  .input {
+    padding: 10px 16px;
+  }
+
+  .inputError {
+    padding: 10px 16px;
+  }
+
+  .shortInput {
+    padding: 10px 16px;
+  }
+
+  .shortInputError {
+    padding: 10px 16px;
+  }
 }

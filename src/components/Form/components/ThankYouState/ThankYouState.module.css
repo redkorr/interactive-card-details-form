@@ -8,14 +8,19 @@
 }
 
 .icon {
-  margin: 0px auto;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 .header {
   color: var(--very-dark-violet);
   font-size: 28px;
   letter-spacing: 0.1em;
-  margin: 10px auto 0px auto;
+  margin-top: 10px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 .header p {
@@ -24,7 +29,10 @@
 
 .text {
   color: var(--dark-grayish-violet);
-  margin: 0px auto 38px auto;
+  margin-bottom: 38px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 .button {
@@ -42,4 +50,11 @@
 
 .button:hover {
   cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .contentWrapper {
+    width: 90%;
+    margin: 0px;
+  }
 }
