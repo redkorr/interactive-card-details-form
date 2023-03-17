@@ -33,3 +33,49 @@
 .cardholderName {
   color: var(--white);
 }
+
+@media (max-width: 1000px) {
+  .cardFront {
+    background-size: 100%;
+    width: 230px;
+    height: 110px;
+    padding: 20px;
+    border-radius: 8px;
+    position: absolute;
+    left: 50%;
+    margin-left: -166px;
+    z-index: 3;
+    margin-top: 100px;
+  }
+
+  .cardLogo {
+    width: 50px;
+    margin-bottom: 16px;
+  }
+
+  .cardNumber {
+    font-size: 18px;
+    color: var(--white);
+    letter-spacing: 0.1em;
+  }
+
+  .cardNumber p {
+    margin: 10px 0px;
+  }
+
+  .cardholderName {
+    font-size: 10px;
+  }
+
+  .cardholderName p {
+    margin: 8px 0px;
+  }
+
+  .expirationDateWrapper {
+    font-size: 10px;
+  }
+
+  .expirationDateWrapper p {
+    margin: 8px 0px;
+  }
+}
