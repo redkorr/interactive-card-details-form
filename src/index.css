@@ -15,10 +15,12 @@ body {
   background-image: url(./assets/bg-main-desktop.png);
   background-repeat: no-repeat;
   background-size: 30lvw 100lvh;
+  margin: 0px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 1000px) {
   body {
-    background-size: 100lvw 30lvh;
+    background-image: url(./assets/bg-main-mobile.png);
+    background-size: 100lvw 28svh;
   }
 }
